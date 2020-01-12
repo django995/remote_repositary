@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Feedback page</title>
+         <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    b{
+        color: red;
+        font-size: 30px;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            {% if feed %}
+            <h2>Available feedbacks</h2>
+            {% for i in feed %}
+            {% if i.Rating >= 5 and i.Rating <= 10 %}
+            <b>Name:{{ i.Name|capfirst }}</b><br>
+            Rating:{{ i.Rating }}<br>
+            Date:{{ i.Date }}<br>
+            Feedback:{{ i.Feedback }}
+            {% endif %}
+        {% endfor %}
+        {% else %}
+        <h2>No feedbacks are available</h2>
+        {% endif %}
+<form method="POST">
+    {% csrf_token %}
+    <h2>Feedback forms</h2>
+    {{ ffrom }}
+    <center>
+    <input type="submit" value="submit" class="btn btn-success">
+    <input type="reset" value="clear" class="btn btn-success">
+        </center>
+</form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
